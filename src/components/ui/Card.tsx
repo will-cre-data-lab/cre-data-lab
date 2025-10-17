@@ -1,24 +1,21 @@
-import React from "react";
-import { cn } from "@/lib/utils";
+import { HTMLAttributes } from 'react';
+import { cn } from '@/lib/utils';
 
-interface CardProps {
-  children: React.ReactNode;
+interface CardProps extends HTMLAttributes<HTMLDivElement> {
   hoverable?: boolean;
-  className?: string;
 }
 
-const Card: React.FC<CardProps> = ({ children, hoverable = false, className }) => {
+export default function Card({ className, hoverable, children, ...props }: CardProps) {
   return (
     <div
       className={cn(
-        "rounded-lg border border-gray-200 bg-white p-6 shadow-sm",
-        hoverable && "transition-transform hover:scale-[1.02] hover:shadow-md",
+        'bg-white rounded-2xl border border-neutral-200 shadow-lg p-6',
+        hoverable && 'transition-all hover:shadow-xl hover:-translate-y-1',
         className
       )}
+      {...props}
     >
       {children}
     </div>
   );
-};
-
-export { Card };
+}

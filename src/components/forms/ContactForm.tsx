@@ -1,127 +1,99 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { contactSchema, type ContactFormData } from "@/lib/validations";
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
-import { Textarea } from "@/components/ui/Textarea";
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { contactSchema, ContactFormData } from '@/lib/validations';
+import Input from '@/components/ui/Input';
+import Textarea from '@/components/ui/Textarea';
+import Button from '@/components/ui/Button';
+import { CheckCircle } from 'lucide-react';
 
-const ContactForm: React.FC = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<{
-    type: "success" | "error" | null;
-    message: string;
-  }>({ type: null, message: "" });
+export default function ContactForm() {
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const {
     register,
     handleSubmit,
+    formState: { errors, isSubmitting },
     reset,
-    formState: { errors },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
 
   const onSubmit = async (data: ContactFormData) => {
-    if (isSubmitting) return;
-
-    setIsSubmitting(true);
-    setSubmitStatus({ type: null, message: "" });
-
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      setError(null);
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
-      const result = await response.json();
-
-      if (response.ok) {
-        setSubmitStatus({
-          type: "success",
-          message: "Thanks for your message! We'll get back to you within 24-48 hours.",
-        });
-        reset();
-      } else {
-        setSubmitStatus({
-          type: "error",
-          message: result.error || "Something went wrong. Please try again.",
-        });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to send message');
       }
-    } catch {
-      setSubmitStatus({
-        type: "error",
-        message: "Network error. Please check your connection and try again.",
-      });
-    } finally {
-      setIsSubmitting(false);
+
+      setIsSuccess(true);
+      reset();
+
+      // Reset success message after 5 seconds
+      setTimeout(() => setIsSuccess(false), 5000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to send message');
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Input
-          {...register("name")}
-          label="Name"
-          placeholder="Your full name"
-          error={errors.name?.message}
-          disabled={isSubmitting}
-        />
+      {isSuccess && (
+        <div className="p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3 text-green-800">
+          <CheckCircle className="w-5 h-5" />
+          <p>Thank you! We've received your message and will get back to you soon.</p>
+        </div>
+      )}
 
-        <Input
-          {...register("email")}
-          type="email"
-          label="Email"
-          placeholder="your@email.com"
-          error={errors.email?.message}
-          disabled={isSubmitting}
-        />
-      </div>
+      {error && (
+        <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
+          {error}
+        </div>
+      )}
 
       <Input
-        {...register("subject")}
-        label="Subject (Optional)"
-        placeholder="What's this about?"
+        {...register('name')}
+        label="Name"
+        placeholder="Your name"
+        error={errors.name?.message}
+      />
+
+      <Input
+        {...register('email')}
+        type="email"
+        label="Email"
+        placeholder="your.email@example.com"
+        error={errors.email?.message}
+      />
+
+      <Input
+        {...register('subject')}
+        label="Subject"
+        placeholder="How can we help?"
         error={errors.subject?.message}
-        disabled={isSubmitting}
       />
 
       <Textarea
-        {...register("message")}
+        {...register('message')}
         label="Message"
-        placeholder="Tell us how we can help you..."
-        rows={5}
-        autoResize
+        rows={6}
+        placeholder="Tell us more about your inquiry..."
         error={errors.message?.message}
-        disabled={isSubmitting}
       />
 
-      <Button
-        type="submit"
-        isLoading={isSubmitting}
-        disabled={isSubmitting}
-        className="w-full"
-      >
-        {isSubmitting ? "Sending Message..." : "Send Message"}
+      <Button type="submit" size="lg" className="w-full" isLoading={isSubmitting}>
+        {isSubmitting ? 'Sending...' : 'Send Message'}
       </Button>
-
-      {submitStatus.type && (
-        <div
-          className={`text-sm ${
-            submitStatus.type === "success" ? "text-green-600" : "text-red-600"
-          }`}
-        >
-          {submitStatus.message}
-        </div>
-      )}
     </form>
   );
-};
-
-export { ContactForm };
+}
