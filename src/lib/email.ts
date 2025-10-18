@@ -1,10 +1,17 @@
 import { Resend } from 'resend';
 
-if (!process.env.RESEND_API_KEY) {
-  throw new Error('RESEND_API_KEY is not set');
-}
+// Lazy initialization - only create client when actually needed
+let resend: Resend | null = null;
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResendClient() {
+  if (!resend) {
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error('RESEND_API_KEY is not set');
+    }
+    resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return resend;
+}
 
 export async function sendContactEmail(data: {
   name: string;
@@ -13,8 +20,10 @@ export async function sendContactEmail(data: {
   message: string;
 }) {
   try {
+    const client = getResendClient();
+
     // Send notification to admin
-    await resend.emails.send({
+    await client.emails.send({
       from: 'CRE Data Lab <noreply@credatalab.com>',
       to: 'info@credatalab.com',
       subject: `Contact Form: ${data.subject}`,
@@ -28,7 +37,7 @@ export async function sendContactEmail(data: {
     });
 
     // Send confirmation to sender
-    await resend.emails.send({
+    await client.emails.send({
       from: 'CRE Data Lab <noreply@credatalab.com>',
       to: data.email,
       subject: 'We received your message',
@@ -49,7 +58,9 @@ export async function sendContactEmail(data: {
 
 export async function sendNewsletterWelcome(email: string) {
   try {
-    await resend.emails.send({
+    const client = getResendClient();
+
+    await client.emails.send({
       from: 'CRE Data Lab <noreply@credatalab.com>',
       to: email,
       subject: 'Welcome to CRE Data Lab',
