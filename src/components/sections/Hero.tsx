@@ -10,7 +10,7 @@ export default function Hero() {
           {/* Left Column - Content */}
           <div className="space-y-8">
             <h1 className="text-hero text-neutral-900 leading-tight">
-              Learn CRE Data Analysis
+              Elite Data Skills for CRE
             </h1>
             <p className="text-body-lg text-neutral-600 max-w-xl">
               Unlock the potential of commercial real estate data with our expert-led courses.
