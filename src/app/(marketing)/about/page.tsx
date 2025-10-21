@@ -16,15 +16,21 @@ export default function AboutPage() {
 
         <div className="space-y-8 text-body-lg text-neutral-600">
           <p>
-            CRE Data Lab was founded with a simple mission: to empower commercial real estate
-            professionals with the data analysis skills they need to make better, more informed
-            decisions.
+            CRE Data Lab was founded with a simple mission: to give commercial real estate 
+            professionals a decisive competitive edge through advanced data analysis skills.
           </p>
 
           <p>
-            In today's market, data is everywhere. But having access to data isn't enough – you
-            need to know how to analyze it, visualize it, and extract actionable insights from it.
-            That's where we come in.
+            In today's market, everyone has access to data – but those who can truly analyze it, visualize 
+            it, and extract actionable insights are the ones who win deals, spot opportunities first, and 
+            outperform their competition. That's the advantage we deliver.
+          </p>
+          
+          <p>
+            While others are still making gut-based decisions, our graduates are leveraging data to 
+            negotiate better terms, identify emerging markets before they peak, and provide clients 
+            with insights their competitors simply can't match. In a crowded marketplace, data fluency 
+            isn't just useful – it's what separates top performers from everyone else.
           </p>
 
           <h2 className="text-heading-2 text-neutral-900 mt-12 mb-6">
@@ -43,9 +49,27 @@ export default function AboutPage() {
           </h2>
 
           <p>
-            Whether you're a broker looking to find better deals, an investor seeking data-driven
-            insights, or a developer analyzing market trends, our courses are designed to meet you
-            where you are and take your skills to the next level.
+            No matter your role in commercial real estate – whether you're client-facing, analytical, 
+            investment-focused, or anywhere in between – our courses equip you with capabilities your 
+            competition simply doesn't have.
+          </p>
+
+          <p>
+            By completing this program, you'll join an elite group of CRE professionals who can do what 
+            most can't: transform raw data into strategic advantage. 
+          </p>
+
+          <p>  
+            You'll bring a skill set to your team that's genuinely scarce in the industry – the ability to 
+            speak the language of both real estate and data. While your competitors rely on intuition and 
+            lagging indicators, you'll be the one at the table with quantifiable insights, predictive analysis, 
+            and a perspective that commands attention.
+          </p>
+
+          <p>
+            This isn't just upskilling – it's repositioning yourself as an indispensable asset with a rare 
+            combination of domain expertise and technical capability that the modern CRE market desperately 
+            needs but rarely finds.
           </p>
 
           <div className="mt-12 text-center">

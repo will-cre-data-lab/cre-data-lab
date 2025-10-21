@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { BarChart3, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navigation = [
@@ -23,7 +24,13 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <BarChart3 className="w-8 h-8 text-primary-500 group-hover:text-primary-600 transition-colors" />
+            <Image
+              src="/logo-medium.png"
+              alt="CRE Data Lab Logo"
+              width={40}
+              height={40}
+              className="group-hover:scale-105 transition-transform"
+            />
             <span className="text-xl font-bold text-neutral-900">
               CRE Data Lab
             </span>

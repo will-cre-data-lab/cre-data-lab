@@ -39,7 +39,7 @@ export default function ContactPage() {
                 <Phone className="w-8 h-8 text-primary-500" />
               </div>
               <h3 className="font-semibold text-neutral-900 mb-2">Phone</h3>
-              <p className="text-neutral-600">(555) 123-4567</p>
+              <p className="text-neutral-600">(210) 722-8978</p>
             </div>
 
             <div className="text-center">
@@ -47,7 +47,7 @@ export default function ContactPage() {
                 <MapPin className="w-8 h-8 text-primary-500" />
               </div>
               <h3 className="font-semibold text-neutral-900 mb-2">Location</h3>
-              <p className="text-neutral-600">San Antonio, TX</p>
+              <p className="text-neutral-600">San Antonio, Tx</p>
             </div>
           </div>
         </div>

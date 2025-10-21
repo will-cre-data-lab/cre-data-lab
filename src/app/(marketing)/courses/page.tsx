@@ -9,10 +9,11 @@ const courses = [
     id: '1',
     slug: 'find-better-deals',
     title: 'Find Better Deals',
-    description: 'Learn Python and data analysis for commercial real estate. Perfect for beginners looking to leverage data in their CRE business.',
+    description: 'Learn Python and advanced analytics for commercial real estate. Perfect for anyone looking to leverage data in their CRE business.',
     duration: '10 weeks',
     level: 'Beginner',
     price: '$997',
+    enrollUrl: 'https://credatalab.teachable.com/p/data-science-for-commercial-real-estate',
   },
 ];
 
@@ -32,6 +33,19 @@ export default function CoursesPage() {
           <p className="text-body-lg text-neutral-600 max-w-2xl mx-auto">
             Master commercial real estate data analysis with our comprehensive, hands-on courses.
           </p>
+          <div className="mt-6">
+            <a
+              href="https://credatalab.teachable.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-600 hover:text-primary-700 font-medium inline-flex items-center gap-2"
+            >
+              Browse all courses on our school page
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
@@ -61,9 +75,13 @@ export default function CoursesPage() {
                   <span className="text-heading-3 text-primary-600">
                     {course.price}
                   </span>
-                  <Link href={`/courses/${course.slug}`}>
-                    <Button>Learn More</Button>
-                  </Link>
+                  <a
+                    href={course.enrollUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button>Enroll Now</Button>
+                  </a>
                 </div>
               </div>
             </Card>

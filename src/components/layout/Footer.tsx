@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BarChart3 } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -9,11 +9,16 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <BarChart3 className="w-8 h-8 text-primary-400" />
+              <Image
+                src="/logo-medium.png"
+                alt="CRE Data Lab Logo"
+                width={40}
+                height={40}
+              />
               <span className="text-xl font-bold">CRE Data Lab</span>
             </div>
             <p className="text-neutral-400 max-w-md">
-              Empowering commercial real estate professionals with data analysis skills.
+              Creating competitive advantages through elite data analysis capabilities.
             </p>
           </div>
 
@@ -44,8 +49,8 @@ export default function Footer() {
             <h3 className="font-semibold mb-4">Contact</h3>
             <ul className="space-y-2 text-neutral-400">
               <li>info@credatalab.com</li>
-              <li>(555) 123-4567</li>
-              <li>San Antonio, TX</li>
+              <li>(210) 722-8978</li>
+              <li></li>
             </ul>
           </div>
         </div>
